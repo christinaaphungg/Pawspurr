@@ -1,0 +1,5 @@
+{
+    "results":[{"name": "Madden", "age": "10", "weight": "20", "photo": "madden.jpeg"}, {"name": "Match", "age": "1", "weight": "12", "photo": "matcha.jpeg"}, {"name": "Marty", "age": "1", "weight": "12", "photo": "marty.jpeg"}]
+}
+
+//name, age, weight, photo, 
