@@ -1,15 +1,19 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Homepage from './containers/Homepage.jsx';
+import CreatePet from './components/CreatePet.jsx';
 
-class App extends Component {
+import './stylesheets/styles.css';
 
-    render() {
-        return (
-            <div>
-                <h1> Hello world! </h1>
-            </div>
-        )
-    }
-
-}
+const App = (props) => {
+  return (
+      <div>
+        <Routes>
+          <Route path="/" element={<Homepage/>}/>
+          <Route path="/create" element={<CreatePet/>}/>
+        </Routes>
+      </div>
+  );
+};
 
 export default App;

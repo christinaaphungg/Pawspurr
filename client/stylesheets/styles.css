@@ -1,0 +1,7 @@
+.mainbtn {
+    border-radius: 5%;
+    border: none;
+    height: 200px;
+    width: 200px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;;
+}
