@@ -1,44 +1,42 @@
-// class Homepage extends Component {
-//     constructor(props){
-//         super(props);
-//     }
-//   render() {
-//     return (
-//       <div>
-//         <Schedule />
-//         <Appointments />
-//         <DueDates />
-//         <MedicalRecords />
-//       </div>
-//     );
-//   }
-// }
-
-import React, { useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Link, Routes, Route, useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 import CreatePet from '../components/CreatePet.jsx';
 import PetCard from '../components/PetCard.jsx';
 
 const Homepage = (props) => {
-  const [pets, getPets] = useState([]);
-  //   const navigateToDetails = () => {
-  //     useNavigate('/details');
-  //   };
-  //   const [clicked, addOnChange] = useState(false);
+  const [pets, getPets] = useState('');
 
-  //   const handleClick = (e) => {
-  //     addOnChange(true);
-  //     console.log('clicked in handleClick', clicked);
-  //   };
+  //only calling this once
+  useEffect(() => {
+    getAllPets();
+  }, []);
+
+  const getAllPets = () => {
+    Axios.get('http://localhost:3000/home')
+      .then((response) => {
+        // console.log('response', response)
+        // console.log('response.data', response.data)
+        const allPets = response.data;
+        getPets(allPets);
+      })
+      .catch((err) => console.log(`Error: ${err}`));
+  };
+
   return (
-    <div>
-      {/* <button className= 'AddButton' type="button" onClick={handleClick}>
-        +
-      </button> */}
-      <CreatePet />
-      <PetCard />
-      {/* {addOnChange && < CreatePet/>} */}
-    </div>
+    <section>
+      <div>
+        <Link to={'/create'}>
+          <button type="button" className="addpetbtn">
+            {' '}
+            Add new pet
+          </button>
+        </Link>
+      </div>
+      <div>
+        <PetCard pets={pets} />
+      </div>
+    </section>
   );
 };
 

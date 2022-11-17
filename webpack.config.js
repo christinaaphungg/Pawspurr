@@ -4,14 +4,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './client/index.js',
   output: {
+    path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
   },
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   devServer: {
     port: 8080,
     static: {
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.resolve(__dirname, './client/components'),
       publicPath: '/',
     },
     compress: true,

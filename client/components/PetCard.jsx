@@ -1,34 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import CreatePet from '../components/CreatePet.jsx';
 
-// // helper functions
-// const srcIsExternal = src => src.slice(0, 4) === 'http';
-// const srcIsMailto = src => src.slice(0, 6) === 'mailto';
-// // if img is src locally (not hosted online),
-// // src will be the required in image file
-// // otherwise, just src will be the url
-// const getImgSrc = src => (srcIsExternal(src) || srcIsMailto(src)
-//   ? src
-//   : require(`../assets/${src}`).default);
 
-const PetCard = (info) => {
-    const{
-        name, breed, gender, age, weight, photo
-    } = info;
 
-  return (
-    <article className="card petCard">
+const PetCard = (props) => {
+  const { pets } = props;
+
+  const deletePet = (name, e) => {
+    console.log('name', name)
+    Axios.delete(`http://localhost:3000/home/${name}`)
+    .then(res => console.log('Pet deleted!', res))
+    .then(res => location.reload())
+    .catch(err => console.log(err));
+  }
+
+  if (pets.length > 0) {
+    return (
       <div>
-        <h3 className="petName">{name}</h3>
+        {pets.map((pet) => {
+          return (
+            <article className="petCard">
+              <div className="petCardContainer">
+                <h3 className="petName">{pet.name}</h3>
+              </div>
+              <ul className="petDetailsList" style={{ listStyleType: 'none' }}>
+                <li className="petDetail">Breed: {pet.breed}</li>
+                <li className="petDetail">Gender: {pet.gender}</li>
+                <li className="petDetail">Age: {pet.age}</li>
+                <li className="petDetail">Weight: {pet.weight}</li>
+              </ul>
+              <div className="deletebtn">
+              <button onClick={(e) => deletePet(pet.name)}>Delete</button>
+              </div>
+            </article>
+          );
+        })}
       </div>
-      <ul className="petDetailsList" style={{listStyleType: "none"}}>
-        <li className="petDetail">Breed: {breed} </li>
-        <li className="petDetail">Gender: {gender}</li>
-        <li className="petDetail">Age: {age}</li>
-        <li className="petDetail">Weight: {weight}</li>
-      </ul>
-    </article>
-  );
+    );
+  }
 };
 
 export default PetCard;
